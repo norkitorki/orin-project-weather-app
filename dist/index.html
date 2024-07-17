@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Odin Project: Weather API</title>
+    <link rel="stylesheet" href="../src/stylesheets/meyer-reset.css" />
+    <link rel="stylesheet" href="../src/stylesheets/style.css" />
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <section class="error">A network error has occured. Please check your internet connection and try again.</section>
+    <button id="convert-unit" class="hidden" title="convert temperature unit"></button>
+
+    <form>
+      <label for="location">Please provide a Location</label>
+      <input type="text" name="location" id="location" required />
+      <button type="submit" class="submit-btn">Find Weather</button>
+    </form>
+
+    <div class="location-select"></div>
+
+    <section class="weather-data hidden">
+      <h1>Current Weather</h1>
+      <span>in</span>
+      <div class="header">
+        <h2 class="location-name"></h2>
+        <div class="current-weather">
+          <img class="condition-icon" alt="current weather condition" />
+          <span class="current-temperature temp"></span>
+          <h3 class="condition"></h3>
+        </div>
+      </div>
+      <button class="refresh-weather">Refresh Weather</button>
+
+      <h2>Forecast by hour</h2>
+      <div class="weather-forecasts"></div>
+    </section>
+
+    <template id="forecast-template">
+      <h3>Heading</h3>
+      <ul class="weather-by-hour">
+        <li class="hour-0"></li>
+        <li class="hour-1"></li>
+        <li class="hour-2"></li>
+        <li class="hour-3"></li>
+        <li class="hour-4"></li>
+        <li class="hour-5"></li>
+        <li class="hour-6"></li>
+        <li class="hour-7"></li>
+        <li class="hour-8"></li>
+        <li class="hour-9"></li>
+        <li class="hour-10"></li>
+        <li class="hour-11"></li>
+        <li class="hour-12"></li>
+        <li class="hour-13"></li>
+        <li class="hour-14"></li>
+        <li class="hour-15"></li>
+        <li class="hour-16"></li>
+        <li class="hour-17"></li>
+        <li class="hour-18"></li>
+        <li class="hour-19"></li>
+        <li class="hour-20"></li>
+        <li class="hour-21"></li>
+        <li class="hour-22"></li>
+        <li class="hour-23"></li>
+      </ul>
+    </template>
+  </body>
+</html>
