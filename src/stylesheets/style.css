@@ -1,0 +1,145 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  background-color: #072d50;
+  color: #f0ffff;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+
+.error {
+  position: absolute;
+  top: -100px;
+  background-color: #a00c07;
+  padding: 1.2rem;
+  border-radius: 4px;
+  transition: all 0.5s ease;
+}
+
+.error-visible {
+  position: relative;
+  transform: translateY(110px);
+}
+
+#convert-unit {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+}
+
+button {
+  color: #f0ffff;
+  background-color: #283fc2;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  transition: background-color, outline 0.3s ease;
+}
+
+button:hover,
+button:focus {
+  background-color: #2151a8;
+  outline: 1px solid #f0ffff;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+input {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+}
+
+.location-select {
+  display: flex;
+  gap: 1rem;
+}
+
+.weather-data {
+  text-align: center;
+}
+
+.weather-data > .header {
+  text-align: center;
+  padding: 0.5rem 1rem 1rem 1rem;
+}
+
+.current-weather {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.weather-forecasts > * {
+  margin: 1rem 0;
+}
+
+.weather-data .weather-by-hour {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  padding: 0.5rem;
+  border: 3px solid #3065c7;
+  border-radius: 0.5rem;
+}
+
+.weather-by-hour > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.passed-hour {
+  filter: brightness(0.45);
+}
+
+.current-hour {
+  outline: 1px solid #2151a8;
+  border-radius: 0.5rem;
+}
+
+.temp {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.cold {
+  color: #4bafce;
+}
+
+.hot {
+  color: #cc730d;
+}
+
+.very-hot {
+  color: #ce3008;
+}
