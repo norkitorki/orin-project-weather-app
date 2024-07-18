@@ -130,8 +130,8 @@ function convertTemperatures(e) {
 }
 
 function setTemperatures(data, element) {
-  element.dataset['c'] = Math.round(data.dewpoint_c);
-  element.dataset['f'] = Math.round(data.dewpoint_f);
+  element.dataset['c'] = Math.round(data.temp_c);
+  element.dataset['f'] = Math.round(data.temp_f);
   const unit = localStorage.getItem('unit');
   colorTemps(element);
   element.textContent = `${element.dataset[unit]} ${unit}°`;
