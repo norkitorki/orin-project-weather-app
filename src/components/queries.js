@@ -1,5 +1,4 @@
 const API_KEY = process.env.WEATHER_API_KEY;
-console.log(API_KEY);
 
 export function getLocationData(query) {
   const url = `https://api.weatherapi.com/v1/search.json?key=${API_KEY}&q=${query}`;
