@@ -8,8 +8,15 @@
     <script src="main.js" defer></script>
   </head>
   <body>
-    <section class="error">A network error has occured. Please check your internet connection and try again.</section>
-    <button id="convert-unit" class="hidden" title="convert temperature unit"></button>
+    <noscript class="no-js error-visible"
+      >This site requires Javascript. Please enable it in your
+      browser.</noscript
+    >
+    <section class="error"></section>
+    <button
+      id="convert-unit"
+      title="convert units between metric and imperial"
+    ></button>
 
     <form>
       <label for="location">Please provide a Location</label>
