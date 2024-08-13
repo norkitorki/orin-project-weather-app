@@ -1,3 +1,13 @@
+@keyframes load {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -7,6 +17,27 @@ body {
   padding: 1rem 0;
   background-color: #072d50;
   color: #f0ffff;
+}
+
+.loading-in-progress > *:not(.loading) {
+  display: none;
+}
+
+.loading {
+  position: absolute;
+  top: 45%;
+  width: 98%;
+  font-size: 1.3rem;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.loading-icon {
+  fill: #2aaaaa;
+  animation: 1s infinite linear load;
 }
 
 h1 {

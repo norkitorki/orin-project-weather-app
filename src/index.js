@@ -10,6 +10,8 @@ import {
 
 import { getLocationData, getWeatherData } from './components/queries';
 
+import { loading } from './components/loading';
+
 document.querySelector('form').addEventListener('submit', submitQuery);
 
 displayWeather(submitWeatherQuery);
@@ -39,6 +41,7 @@ function submitQuery(e) {
 
 async function submitWeatherQuery(query) {
   try {
+    loading.show();
     const data = await getWeatherData(query);
     console.log('Fetched weather data');
 
@@ -48,11 +51,14 @@ async function submitWeatherQuery(query) {
     hideError();
   } catch (error) {
     displayError(error.message);
+  } finally {
+    loading.hide();
   }
 }
 
 async function submitLocationQuery(query) {
   try {
+    loading.show();
     const data = await getLocationData(query);
     console.log('Fetched location data');
 
@@ -70,5 +76,7 @@ async function submitLocationQuery(query) {
     }
   } catch (error) {
     displayError(error.message);
+  } finally {
+    loading.hide();
   }
 }
