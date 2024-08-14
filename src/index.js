@@ -1,6 +1,8 @@
 import './stylesheets/meyer-reset.css';
 import './stylesheets/style.css';
 
+import { loading } from './components/loading';
+
 import {
   displayWeather,
   selectLocation,
@@ -9,12 +11,6 @@ import {
 } from './components/weather_display';
 
 import { getLocationData, getWeatherData } from './components/queries';
-
-import { loading } from './components/loading';
-
-document.querySelector('form').addEventListener('submit', submitQuery);
-
-displayWeather(submitWeatherQuery);
 
 function submitQuery(e) {
   e.preventDefault();
@@ -78,3 +74,7 @@ async function submitLocationQuery(query) {
     loading.hide();
   }
 }
+
+document.querySelector('form').addEventListener('submit', submitQuery);
+
+displayWeather(submitWeatherQuery);
