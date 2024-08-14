@@ -41,8 +41,6 @@ export function displayWeather(refreshCallback, day = []) {
 }
 
 function updateCurrentWeather(weatherData, locationData) {
-  console.log(weatherData);
-
   const container = document.querySelector('.weather-data > .current');
   container.innerHTML = '';
 
