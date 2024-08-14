@@ -33,7 +33,7 @@ function submitQuery(e) {
     locations.length > 1 &&
     input.value.toLowerCase() === lastQuery.toLowerCase()
   ) {
-    selectLocation(locations);
+    selectLocation(locations, submitWeatherQuery);
   } else {
     submitLocationQuery(input.value);
   }
@@ -43,7 +43,6 @@ async function submitWeatherQuery(query) {
   try {
     loading.show();
     const data = await getWeatherData(query);
-    console.log('Fetched weather data');
 
     localStorage.setItem('weather_data', JSON.stringify(data));
     localStorage.setItem('location_url', query);
@@ -60,7 +59,6 @@ async function submitLocationQuery(query) {
   try {
     loading.show();
     const data = await getLocationData(query);
-    console.log('Fetched location data');
 
     if (data.length === 0) {
       displayError('Sorry, no weather for the requested location was found');
