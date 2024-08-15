@@ -202,7 +202,7 @@ input {
 }
 
 .current-condition {
-  margin: 1rem 0;
+  margin-bottom: 1rem;
 }
 
 .conditions {
