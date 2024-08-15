@@ -47,12 +47,6 @@ table {
 	border-spacing: 0;
 }
 
-@media (max-width: 860px) {
-  .action-buttons {
-    position: static;
-  }
-}
-
 @keyframes load {
   from {
     transform: rotate(0deg);
@@ -285,5 +279,11 @@ input {
 .temp,
 .conditions p {
   font-size: 1.2rem;
+}
+
+@media (max-width: 860px) {
+  .action-buttons {
+    position: static;
+  }
 }
 
