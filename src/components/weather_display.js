@@ -1,3 +1,5 @@
+import { displayMap } from './map_display';
+
 const error = document.querySelector('.error');
 
 localStorage.setItem('unit', localStorage.getItem('unit') || 'm');
@@ -32,6 +34,7 @@ export function displayWeather(refreshCallback, day = []) {
 
     updateCurrentWeather(data.current, data.location);
     updateWeatherForecast(forecasts, localHour, data.location);
+    displayMap(data.location.lat, data.location.lon);
     document.querySelector('.weather-data').classList.remove('hidden');
 
     return true;
@@ -40,8 +43,8 @@ export function displayWeather(refreshCallback, day = []) {
   }
 }
 
-function updateCurrentWeather(weatherData, locationData) {
-  const container = document.querySelector('.weather-data > .current');
+function updateCurrentWeather(weatherData, locationData, localDate) {
+  const container = document.querySelector('.weather-data .current');
   container.innerHTML = '';
 
   const template = document
@@ -52,6 +55,7 @@ function updateCurrentWeather(weatherData, locationData) {
   const locationTime = template.querySelector('.location-time');
   const conditionIcon = template.querySelector('.condition-icon');
   const condition = template.querySelector('.condition');
+  const date = template.querySelector('.date');
   const lastUpdate = template.querySelector('.last-update');
   const temperature = template.querySelector('.temperature');
   const humidity = template.querySelector('.humidity');
@@ -61,10 +65,6 @@ function updateCurrentWeather(weatherData, locationData) {
   const windDirection = template.querySelector('.wind-direction');
   const visibility = template.querySelector('.visibility');
 
-  lastUpdate.textContent = JSON.parse(
-    localStorage.getItem('weather_data')
-  ).current.last_updated.split(' ')[1];
-
   locationName.textContent = `${locationData.name} (${locationData.region}), ${locationData.country}`;
   locationTime.textContent = (
     weatherData.time || weatherData.last_updated
@@ -72,6 +72,12 @@ function updateCurrentWeather(weatherData, locationData) {
 
   conditionIcon.src = weatherData.condition.icon.replace(/^\/\//, 'https://');
   condition.textContent = weatherData.condition.text;
+
+  date.textContent = localDate || locationData.localtime.split(' ')[0];
+
+  lastUpdate.textContent = JSON.parse(
+    localStorage.getItem('weather_data')
+  ).current.last_updated.split(' ')[1];
 
   humidity.textContent = `${weatherData.humidity}%`;
 
@@ -104,7 +110,7 @@ function updateWeatherForecast(data, localHour, locationData) {
       const element = template.querySelector(`.hour-${y}`);
 
       element.addEventListener('click', () => {
-        updateCurrentWeather(hour, locationData, null);
+        updateCurrentWeather(hour, locationData, day.date);
         const locationInfo = document.querySelector('.weather-data');
         locationInfo.scrollIntoView({ behavior: 'smooth' });
       });
