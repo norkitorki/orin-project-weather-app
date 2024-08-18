@@ -5,7 +5,6 @@ export function displayMap(lat = 0.0, lon = 0.0) {
   let element = document.getElementById('map');
 
   if (element.classList.value.includes('leaflet-container')) {
-    console.log('exiting container');
     const newElement = document.createElement('div');
     newElement.id = 'map';
     element.parentElement.replaceChild(newElement, element);
@@ -14,15 +13,34 @@ export function displayMap(lat = 0.0, lon = 0.0) {
 
   const map = L.map(element, {
     center: [lat, lon],
-    zoom: 8,
+    zoom: 7,
     dragging: false,
     scrollWheelZoom: 'center',
   });
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
     attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
+
+  L.tileLayer(
+    'https://map1.vis.earthdata.nasa.gov/wmts-webmerc/MODIS_Terra_L2_Chlorophyll_A/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}',
+    {
+      attribution:
+        'Imagery provided by services from the Global Imagery Browse Services (GIBS), operated by the NASA/GSFC/Earth Science Data and Information System (<a href="https://earthdata.nasa.gov">ESDIS</a>) with funding provided by NASA/HQ.',
+      bounds: [
+        [-85.0511287776, -179.999999975],
+        [85.0511287776, 179.999999975],
+      ],
+      minZoom: 1,
+      maxZoom: 7,
+      format: 'png',
+      time: '',
+      tilematrixset: 'GoogleMapsCompatible_Level',
+      opacity: 0.75,
+    }
+  ).addTo(map);
 
   const markerIcon = L.icon({
     iconUrl: 'src/icons/marker.png',
