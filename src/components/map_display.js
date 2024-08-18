@@ -11,20 +11,16 @@ export function displayMap(lat = 0.0, lon = 0.0) {
     element = newElement;
   }
 
-  const map = L.map(element, {
-    center: [lat, lon],
-    zoom: 7,
-    dragging: false,
-    scrollWheelZoom: 'center',
-  });
+  const mainLayer = L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+      maxZoom: 19,
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }
+  );
 
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
-
-  L.tileLayer(
+  const precipLayer = L.tileLayer(
     'https://map1.vis.earthdata.nasa.gov/wmts-webmerc/MODIS_Terra_L2_Chlorophyll_A/default/{time}/{tilematrixset}{maxZoom}/{z}/{y}/{x}.{format}',
     {
       attribution:
@@ -40,7 +36,19 @@ export function displayMap(lat = 0.0, lon = 0.0) {
       tilematrixset: 'GoogleMapsCompatible_Level',
       opacity: 0.75,
     }
-  ).addTo(map);
+  );
+
+  const map = L.map(element, {
+    center: [lat, lon],
+    layers: [mainLayer, precipLayer],
+    zoom: 7,
+    dragging: false,
+    scrollWheelZoom: 'center',
+  });
+
+  setTimeout(function () {
+    map.invalidateSize();
+  }, 100);
 
   const markerIcon = L.icon({
     iconUrl: 'src/icons/marker.png',
