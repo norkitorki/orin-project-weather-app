@@ -43,6 +43,57 @@ export function displayWeather(refreshCallback, day = []) {
   }
 }
 
+export function selectLocation(locations, callback) {
+  const container = document.querySelector('.location-select');
+  container.innerHTML = '';
+
+  let button;
+  locations.forEach((location) => {
+    button = document.createElement('button');
+    button.textContent = `${location.name}(${location.region}), ${location.country}`;
+    button.addEventListener('click', () => {
+      container.innerHTML = '';
+      if (callback) {
+        callback.call(this, location.url);
+      }
+    });
+
+    container.appendChild(button);
+  });
+}
+
+export function displayError(message) {
+  error.textContent = message;
+  error.classList.add('error-visible');
+  console.error(message);
+}
+
+export function hideError() {
+  error.classList.remove('error-visible');
+}
+
+function colorTemps() {
+  this.classList.value = 'temp';
+  const currentTemp = Number(this.dataset['m'].match(/^\d+/));
+
+  if (currentTemp > 30) {
+    this.classList.add('very-hot');
+  } else if (currentTemp > 20) {
+    this.classList.add('hot');
+  } else if (currentTemp < 10) {
+    this.classList.add('cold');
+  }
+}
+
+function setTemperatures(data, element) {
+  setUnits(
+    `${Math.round(data.temp_c)} c°`,
+    `${Math.round(data.temp_f)} f°`,
+    element,
+    [colorTemps.bind(element)]
+  );
+}
+
 function updateCurrentWeather(weatherData, locationData, localDate) {
   const container = document.querySelector('.weather-data .current');
   container.innerHTML = '';
@@ -140,47 +191,6 @@ function updateWeatherForecast(data, localHour, locationData) {
   });
 }
 
-export function selectLocation(locations, callback) {
-  const container = document.querySelector('.location-select');
-  container.innerHTML = '';
-
-  let button;
-  locations.forEach((location) => {
-    button = document.createElement('button');
-    button.textContent = `${location.name}(${location.region}), ${location.country}`;
-    button.addEventListener('click', () => {
-      container.innerHTML = '';
-      if (callback) {
-        callback.call(this, location.url);
-      }
-    });
-
-    container.appendChild(button);
-  });
-}
-
-function colorTemps() {
-  this.classList.value = 'temp';
-  const currentTemp = Number(this.dataset['m'].match(/^\d+/));
-
-  if (currentTemp > 30) {
-    this.classList.add('very-hot');
-  } else if (currentTemp > 20) {
-    this.classList.add('hot');
-  } else if (currentTemp < 10) {
-    this.classList.add('cold');
-  }
-}
-
-function setTemperatures(data, element) {
-  setUnits(
-    `${Math.round(data.temp_c)} c°`,
-    `${Math.round(data.temp_f)} f°`,
-    element,
-    [colorTemps.bind(element)]
-  );
-}
-
 function setAirPressure(data, element) {
   setUnits(`${data.pressure_mb} mb`, `${data.pressure_in} in`, element);
 }
@@ -230,14 +240,4 @@ function convertUnits(e) {
 
   e.target.textContent = newUnit === 'm' ? 'Metric' : 'Imperial';
   localStorage.setItem('unit', newUnit);
-}
-
-export function displayError(message) {
-  error.textContent = message;
-  error.classList.add('error-visible');
-  console.error(message);
-}
-
-export function hideError() {
-  error.classList.remove('error-visible');
 }
